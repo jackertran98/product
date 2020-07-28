@@ -1,27 +1,36 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-export default class Edit extends Component {
-    constructor(props){
-        super(props)
-        this.state={
-            value:''
-        }
-    }
-    onChangeEdit=(e)=>{
-        this.setState({
-            value:e.target.value
-        })
-    }
-    onEdited=()=>{
-        console.log(this.props)
-    }
-    render() {
-        return (
-            <div>
-                <input type="text" onChange={(e)=>this.onChangeEdit(e)}/>
-                <button onClick={this.onEdited}>save</button>
-            </div>
-        )
-    }
+class Edit extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: this.props.post
+    };
+  }
+
+  onChangeEdit = e => {
+    this.setState({
+      value: { ...this.state.value, value: e.target.value }
+    });
+  };
+  onEdited = () => {
+    this.setState({ value: { ...this.state.value, value: "" } });
+    this.props.editPost(this.state.value);
+  };
+
+  render() {
+    console.log("Props cua Edit hien gio", this.props);
+    return (
+      <div>
+        <input
+          type="text"
+          value={this.state.value.value}
+          onChange={e => this.onChangeEdit(e)}
+        />
+        <button onClick={this.onEdited}>save</button>
+      </div>
+    );
+  }
 }
 
+export default Edit;
